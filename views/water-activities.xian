@@ -1,0 +1,438 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Water Activities | AquaPiol</title>
+</head>
+<body class="bg-slate-100 min-h-screen">
+<div class="flex min-h-screen">
+
+  <aside class="w-64 bg-slate-900 text-white p-6 hidden md:block">
+    <h1 class="text-2xl font-bold text-cyan-400 mb-10">AquaPiol</h1>
+    <nav class="space-y-2">
+      <a href="/dashboard" class="block p-3 rounded-lg hover:bg-slate-800">Dashboard</a>
+      <a href="/customers" class="block p-3 rounded-lg hover:bg-slate-800">Customers</a>
+      <a href="/customer-logs" class="block p-3 rounded-lg hover:bg-slate-800">Customer Logs</a>
+      <p class="text-xs text-cyan-400 font-bold pt-5 px-3">TRANSACTION MANAGEMENT</p>
+      <a href="/orders" class="block p-3 rounded-lg hover:bg-slate-800">Orders</a>
+      <a href="/water-activities" class="block p-3 rounded-lg bg-cyan-600 text-white">Water Activities</a>
+      <p class="text-xs text-cyan-400 font-bold pt-5 px-3">CUSTOMER FEEDBACK</p>
+      <a href="/feedbacks" class="block p-3 rounded-lg hover:bg-slate-800">Feedbacks</a>
+      <a href="/logout" class="block p-3 rounded-lg hover:bg-slate-800 mt-5">Logout</a>
+    </nav>
+  </aside>
+
+  <main class="flex-1 p-5 md:p-10">
+    <header class="flex flex-wrap justify-between items-center gap-4 mb-8">
+      <div>
+        <h2 class="text-3xl font-bold text-slate-800">Water Activities Management</h2>
+        <p class="text-slate-500 mt-1">Monitor customer refills, deliveries, pickups, and other water activities.</p>
+      </div>
+      <button onclick="openActivityForm()" class="bg-cyan-600 hover:bg-cyan-700 text-white px-5 py-3 rounded-lg font-semibold">
+        + Add Activity
+      </button>
+    </header>
+
+    <section class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-5 gap-5 mb-8">
+      <div class="bg-white p-6 rounded-xl shadow-sm">
+        <p class="text-sm text-slate-500">Total Activities</p>
+        <h3 id="totalActivities" class="text-3xl font-bold mt-2">0</h3>
+      </div>
+      <div class="bg-white p-6 rounded-xl shadow-sm">
+        <p class="text-sm text-slate-500">Refill</p>
+        <h3 id="refillActivities" class="text-3xl font-bold text-cyan-600 mt-2">0</h3>
+      </div>
+      <div class="bg-white p-6 rounded-xl shadow-sm">
+        <p class="text-sm text-slate-500">Delivery</p>
+        <h3 id="deliveryActivities" class="text-3xl font-bold text-blue-600 mt-2">0</h3>
+      </div>
+      <div class="bg-white p-6 rounded-xl shadow-sm">
+        <p class="text-sm text-slate-500">Pickup</p>
+        <h3 id="pickupActivities" class="text-3xl font-bold text-amber-600 mt-2">0</h3>
+      </div>
+      <div class="bg-white p-6 rounded-xl shadow-sm">
+        <p class="text-sm text-slate-500">Other</p>
+        <h3 id="otherActivities" class="text-3xl font-bold text-slate-600 mt-2">0</h3>
+      </div>
+    </section>
+
+    <section class="bg-white rounded-xl shadow-sm p-6 mb-8">
+      <div class="mb-5">
+        <h3 id="formTitle" class="text-xl font-bold">Add Water Activity</h3>
+        <p class="text-sm text-slate-500 mt-1">Enter the customer's water activity details.</p>
+      </div>
+
+      <form id="activityForm" class="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <input type="hidden" id="activityId">
+
+        <div>
+          <label for="customerId" class="block text-sm font-medium mb-2">Select Customer *</label>
+          <select id="customerId" required class="w-full border border-slate-300 rounded-lg px-3 py-3 outline-none focus:ring-2 focus:ring-cyan-500">
+            <option value="">Loading customers...</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="activityType" class="block text-sm font-medium mb-2">Activity Type *</label>
+          <select id="activityType" required class="w-full border border-slate-300 rounded-lg px-3 py-3 outline-none focus:ring-2 focus:ring-cyan-500">
+            <option value="">Select activity type</option>
+            <option value="refill">Refill</option>
+            <option value="delivery">Delivery</option>
+            <option value="pickup">Pickup</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="quantity" class="block text-sm font-medium mb-2">Quantity *</label>
+          <input id="quantity" type="number" min="1" step="1" required placeholder="Enter quantity"
+            class="w-full border border-slate-300 rounded-lg px-3 py-3 outline-none focus:ring-2 focus:ring-cyan-500">
+        </div>
+
+        <div>
+          <label for="amount" class="block text-sm font-medium mb-2">Amount (₱) *</label>
+          <input id="amount" type="number" min="0" step="0.01" required placeholder="0.00"
+            class="w-full border border-slate-300 rounded-lg px-3 py-3 outline-none focus:ring-2 focus:ring-cyan-500">
+        </div>
+
+        <div>
+          <label for="activityDate" class="block text-sm font-medium mb-2">Activity Date *</label>
+          <input id="activityDate" type="datetime-local" required
+            class="w-full border border-slate-300 rounded-lg px-3 py-3 outline-none focus:ring-2 focus:ring-cyan-500">
+        </div>
+
+        <div>
+          <label for="notes" class="block text-sm font-medium mb-2">Notes</label>
+          <textarea id="notes" rows="3" placeholder="Additional activity details (optional)"
+            class="w-full border border-slate-300 rounded-lg px-3 py-3 outline-none focus:ring-2 focus:ring-cyan-500"></textarea>
+        </div>
+
+        <div class="md:col-span-2 flex flex-wrap items-center gap-3">
+          <button id="saveButton" type="submit" class="bg-cyan-600 hover:bg-cyan-700 text-white px-6 py-3 rounded-lg font-semibold">
+            Save Activity
+          </button>
+          <button id="cancelButton" type="button" onclick="resetActivityForm()" class="hidden bg-slate-200 hover:bg-slate-300 text-slate-700 px-6 py-3 rounded-lg font-semibold">
+            Cancel Edit
+          </button>
+          <p id="formMessage" class="text-sm" role="status"></p>
+        </div>
+      </form>
+    </section>
+
+    <section class="bg-white rounded-xl shadow-sm p-6">
+      <div class="flex flex-wrap justify-between items-center gap-4 mb-5">
+        <div>
+          <h3 class="text-xl font-bold">Water Activity Records</h3>
+          <p class="text-sm text-slate-500 mt-1">View and update customer water activities.</p>
+        </div>
+        <div class="flex flex-wrap gap-3">
+          <input id="searchInput" type="search" placeholder="Search customer or activity..."
+            class="border border-slate-300 rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-cyan-500">
+          <select id="typeFilter" class="border border-slate-300 rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-cyan-500">
+            <option value="">All Activity Types</option>
+            <option value="refill">Refill</option>
+            <option value="delivery">Delivery</option>
+            <option value="pickup">Pickup</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm text-left">
+          <thead class="bg-slate-50 text-slate-600">
+            <tr>
+              <th class="p-3">Customer</th>
+              <th class="p-3">Activity Type</th>
+              <th class="p-3">Quantity</th>
+              <th class="p-3">Amount</th>
+              <th class="p-3">Activity Date</th>
+              <th class="p-3">Notes</th>
+              <th class="p-3">Action</th>
+            </tr>
+          </thead>
+          <tbody id="activitiesTable" class="divide-y divide-slate-100">
+            <tr><td colspan="7" class="p-5 text-center text-slate-500">Loading activities...</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p id="recordCount" class="text-sm text-slate-500 mt-4">0 activity record(s).</p>
+    </section>
+  </main>
+</div>
+
+<script>
+let activities = [];
+let activeCustomers = [];
+
+const form = document.getElementById("activityForm");
+const formMessage = document.getElementById("formMessage");
+const saveButton = document.getElementById("saveButton");
+
+function escapeHTML(value) {
+  return String(value ?? "").replace(/[&<>"']/g, char => ({
+    "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+  })[char]);
+}
+
+function customerName(customer) {
+  if (!customer) return "Unknown Customer";
+  return [customer.firstName, customer.middleName, customer.lastName]
+    .filter(Boolean).join(" ");
+}
+
+function formatDate(value) {
+  if (!value) return "—";
+  const date = new Date(value);
+  return Number.isNaN(date.getTime()) ? "—" : date.toLocaleString();
+}
+
+function formatDateInput(value) {
+  const date = value ? new Date(value) : new Date();
+  const localDate = new Date(date.getTime() - date.getTimezoneOffset() * 60000);
+  return localDate.toISOString().slice(0, 16);
+}
+
+function formatAmount(value) {
+  return Number(value || 0).toLocaleString("en-PH", {
+    style: "currency", currency: "PHP"
+  });
+}
+
+function typeLabel(type) {
+  const labels = {
+    refill: "Refill",
+    delivery: "Delivery",
+    pickup: "Pickup",
+    other: "Other"
+  };
+  return labels[type] || type || "—";
+}
+
+function typeClass(type) {
+  const classes = {
+    refill: "bg-cyan-100 text-cyan-700",
+    delivery: "bg-blue-100 text-blue-700",
+    pickup: "bg-amber-100 text-amber-700",
+    other: "bg-slate-100 text-slate-700"
+  };
+  return classes[type] || "bg-slate-100 text-slate-700";
+}
+
+async function loadCustomers() {
+  const select = document.getElementById("customerId");
+
+  try {
+    const response = await fetch("/api/customers");
+    const result = await response.json();
+
+    if (!response.ok || !result.success) {
+      throw new Error(result.message || "Unable to load customers.");
+    }
+
+    activeCustomers = (result.data || []).filter(customer => customer.status === "active");
+
+    select.innerHTML = '<option value="">Select a customer</option>' +
+      activeCustomers.map(customer =>
+        `<option value="${escapeHTML(customer.id)}">${escapeHTML(customerName(customer))}</option>`
+      ).join("");
+
+    if (!activeCustomers.length) {
+      select.innerHTML = '<option value="">No active customers available</option>';
+    }
+  } catch (error) {
+    select.innerHTML = '<option value="">Unable to load customers</option>';
+    formMessage.textContent = error.message;
+    formMessage.className = "text-sm text-red-600";
+  }
+}
+
+function updateStatistics() {
+  document.getElementById("totalActivities").textContent = activities.length;
+  document.getElementById("refillActivities").textContent =
+    activities.filter(item => item.activityType === "refill").length;
+  document.getElementById("deliveryActivities").textContent =
+    activities.filter(item => item.activityType === "delivery").length;
+  document.getElementById("pickupActivities").textContent =
+    activities.filter(item => item.activityType === "pickup").length;
+  document.getElementById("otherActivities").textContent =
+    activities.filter(item => item.activityType === "other").length;
+}
+
+function renderActivities() {
+  const search = document.getElementById("searchInput").value.toLowerCase().trim();
+  const type = document.getElementById("typeFilter").value;
+
+  const filtered = activities.filter(item => {
+    const name = customerName(item.customer).toLowerCase();
+    const matchesSearch = name.includes(search) ||
+      String(item.activityType || "").toLowerCase().includes(search) ||
+      String(item.notes || "").toLowerCase().includes(search);
+
+    return matchesSearch && (!type || item.activityType === type);
+  });
+
+  const tbody = document.getElementById("activitiesTable");
+
+  if (!filtered.length) {
+    tbody.innerHTML = '<tr><td colspan="7" class="p-5 text-center text-slate-500">No water activities found.</td></tr>';
+  } else {
+    tbody.innerHTML = filtered.map(item => `
+      <tr class="hover:bg-slate-50">
+        <td class="p-3 font-medium">${escapeHTML(customerName(item.customer))}</td>
+        <td class="p-3"><span class="px-3 py-1 rounded-full text-xs font-semibold ${typeClass(item.activityType)}">${escapeHTML(typeLabel(item.activityType))}</span></td>
+        <td class="p-3">${escapeHTML(item.quantity)}</td>
+        <td class="p-3">${escapeHTML(formatAmount(item.amount))}</td>
+        <td class="p-3">${escapeHTML(formatDate(item.activityDate))}</td>
+        <td class="p-3">${escapeHTML(item.notes || "—")}</td>
+        <td class="p-3">
+          <button onclick="editActivity(${Number(item.id)})" class="text-cyan-700 hover:text-cyan-900 font-semibold">Edit</button>
+        </td>
+      </tr>
+    `).join("");
+  }
+
+  document.getElementById("recordCount").textContent =
+    `${filtered.length} activity record(s).`;
+}
+
+async function loadActivities() {
+  const tbody = document.getElementById("activitiesTable");
+
+  try {
+    const response = await fetch("/api/water-activities");
+    const result = await response.json();
+
+    if (!response.ok || !result.success) {
+      throw new Error(result.message || "Unable to load water activities.");
+    }
+
+    activities = (result.data || []).sort(
+      (a, b) => new Date(b.activityDate) - new Date(a.activityDate)
+    );
+
+    updateStatistics();
+    renderActivities();
+  } catch (error) {
+    tbody.innerHTML = `<tr><td colspan="7" class="p-5 text-center text-red-600">${escapeHTML(error.message)}</td></tr>`;
+  }
+}
+
+function openActivityForm() {
+  resetActivityForm();
+  document.getElementById("activityForm").scrollIntoView({
+    behavior: "smooth", block: "center"
+  });
+  document.getElementById("customerId").focus();
+}
+
+function resetActivityForm() {
+  form.reset();
+  document.getElementById("activityId").value = "";
+  document.getElementById("activityDate").value = formatDateInput();
+  document.getElementById("formTitle").textContent = "Add Water Activity";
+  saveButton.textContent = "Save Activity";
+  document.getElementById("cancelButton").classList.add("hidden");
+  formMessage.textContent = "";
+  formMessage.className = "text-sm";
+}
+
+function editActivity(id) {
+  const item = activities.find(activity => Number(activity.id) === Number(id));
+  if (!item) return;
+
+  document.getElementById("activityId").value = item.id;
+  document.getElementById("customerId").value = item.customerId;
+  document.getElementById("activityType").value = item.activityType;
+  document.getElementById("quantity").value = item.quantity;
+  document.getElementById("amount").value = item.amount;
+  document.getElementById("activityDate").value = formatDateInput(item.activityDate);
+  document.getElementById("notes").value = item.notes || "";
+
+  document.getElementById("formTitle").textContent = "Edit Water Activity";
+  saveButton.textContent = "Update Activity";
+  document.getElementById("cancelButton").classList.remove("hidden");
+  formMessage.textContent = "";
+
+  form.scrollIntoView({ behavior: "smooth", block: "center" });
+}
+
+form.addEventListener("submit", async event => {
+  event.preventDefault();
+
+  const id = document.getElementById("activityId").value;
+  const customerId = document.getElementById("customerId").value;
+  const activityType = document.getElementById("activityType").value;
+  const quantity = Number(document.getElementById("quantity").value);
+  const amount = Number(document.getElementById("amount").value);
+  const activityDate = document.getElementById("activityDate").value;
+
+  if (!customerId || !activityType || !activityDate ||
+      !Number.isInteger(quantity) || quantity <= 0 ||
+      !Number.isFinite(amount) || amount < 0) {
+    formMessage.textContent = "Please check all required fields and enter valid quantity and amount.";
+    formMessage.className = "text-sm text-red-600";
+    return;
+  }
+
+  const payload = {
+    customerId: Number(customerId),
+    activityType,
+    quantity,
+    amount,
+    activityDate: new Date(activityDate).toISOString(),
+    notes: document.getElementById("notes").value.trim()
+  };
+
+  saveButton.disabled = true;
+  saveButton.textContent = "Saving...";
+  formMessage.textContent = "";
+
+  try {
+    const response = await fetch(
+      id ? `/api/water-activities/${id}` : "/api/water-activities",
+      {
+        method: id ? "PUT" : "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      }
+    );
+
+    const result = await response.json();
+
+    if (!response.ok || !result.success) {
+      throw new Error(result.message || "Unable to save water activity.");
+    }
+
+    resetActivityForm();
+    await loadActivities();
+
+    formMessage.textContent = id
+      ? "Water activity updated successfully."
+      : "Water activity created successfully.";
+    formMessage.className = "text-sm text-green-600";
+  } catch (error) {
+    formMessage.textContent = error.message;
+    formMessage.className = "text-sm text-red-600";
+  } finally {
+    saveButton.disabled = false;
+    saveButton.textContent =
+      document.getElementById("activityId").value ? "Update Activity" : "Save Activity";
+  }
+});
+
+document.getElementById("searchInput").addEventListener("input", renderActivities);
+document.getElementById("typeFilter").addEventListener("change", renderActivities);
+
+async function initializePage() {
+  document.getElementById("activityDate").value = formatDateInput();
+  await loadCustomers();
+  await loadActivities();
+}
+
+initializePage();
+</script>
+</body>
+</html>

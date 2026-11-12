@@ -1,0 +1,420 @@
+﻿
+{{> head}}
+
+<body class="bg-slate-50 text-slate-800">
+<div class="min-h-screen flex">
+
+  <!-- SIDEBAR -->
+  <aside class="w-64 bg-[#073746] text-white flex flex-col min-h-screen">
+    <div class="px-6 py-7 border-b border-white/10">
+      <div class="flex items-center gap-3">
+        <div class="w-11 h-11 rounded-xl bg-cyan-500 flex items-center justify-center text-2xl">&#128167;</div>
+        <div>
+          <h1 class="text-xl font-bold">AquaPiol</h1>
+          <p class="text-xs text-cyan-200">Customers Log Management</p>
+        </div>
+      </div>
+    </div>
+
+    <nav class="flex-1 px-4 py-6">
+      <p class="text-xs font-bold tracking-widest text-cyan-300 mb-4">WORKSPACE</p>
+
+      <a href="/dashboard" class="flex items-center gap-3 px-4 py-3 rounded-xl bg-cyan-500/20 border-l-4 border-cyan-400 mb-2">
+        <span>&#9632;</span>
+        <span class="font-semibold text-sm">Dashboard</span>
+      </a>
+
+      <p class="text-xs font-bold tracking-widest text-cyan-300 mt-7 mb-4">CUSTOMER MANAGEMENT</p>
+
+      <a href="/customers" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/10 text-slate-200 mb-2">
+        <span>&#9787;</span>
+        <span class="text-sm">Customers</span>
+      </a>
+
+      <a href="/customer-logs" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/10 text-slate-200 mb-2">
+        <span>&#9776;</span>
+        <span class="text-sm">Customer Logs</span>
+      </a>
+
+      <p class="text-xs font-bold tracking-widest text-cyan-300 mt-7 mb-4">TRANSACTION MANAGEMENT</p>
+
+      <a href="/orders" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/10 text-slate-200 mb-2">
+        <span>▣</span>
+        <span class="text-sm">Orders</span>
+      </a>
+
+      <a href="/water-activities" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/10 text-slate-200 mb-2">
+        <span>💧</span>
+        <span class="text-sm">Water Activities</span>
+      </a>
+
+      <p class="text-xs font-bold tracking-widest text-cyan-300 mt-7 mb-4">CUSTOMER FEEDBACK</p>
+
+      <a href="/feedbacks" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/10 text-slate-200 mb-2">
+        <span>☆</span>
+        <span class="text-sm">Feedbacks</span>
+      </a>
+
+
+      <a href="#recent-activities" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/10 text-slate-200 mb-2">
+        <span>&#9670;</span>
+        <span class="text-sm">Recent Activities</span>
+      </a>
+    </nav>
+
+    <div class="p-4 border-t border-white/10">
+      <div class="flex items-center gap-3 p-2">
+        <div class="w-10 h-10 rounded-full bg-cyan-500 flex items-center justify-center font-bold">AS</div>
+        <div>
+          <p class="text-sm font-semibold">AquaPiol Staff</p>
+          <p class="text-xs text-cyan-200">Staff Account</p>
+        </div>
+      </div>
+      <a href="/logout" class="block mt-3 px-3 py-2 text-sm text-red-300 hover:bg-white/10 rounded-lg">
+        Sign out
+      </a>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="flex-1 min-w-0">
+
+    <!-- HEADER -->
+    <header class="bg-white border-b border-slate-200 px-8 py-5">
+      <div class="flex flex-wrap justify-between items-center gap-4">
+        <div>
+          <p class="text-xs font-bold tracking-widest text-teal-700">AQUAPIOL / CUSTOMERS</p>
+          <h2 class="text-2xl font-bold text-slate-900 mt-1">Dashboard</h2>
+          <p class="text-sm text-slate-500 mt-1">Monitor customer records and service activities.</p>
+        </div>
+        <div class="flex items-center gap-3">
+          <div class="text-right">
+            <p class="text-sm font-semibold text-slate-700">AquaPiol Bongabong</p>
+            <p class="text-xs text-slate-500">Water Refilling Station</p>
+          </div>
+          <div class="w-11 h-11 rounded-xl bg-cyan-50 text-cyan-700 flex items-center justify-center text-xl">&#128167;</div>
+        </div>
+      </div>
+    </header>
+
+    <div class="p-6 md:p-8">
+
+      <!-- OVERVIEW -->
+      <div class="mb-6">
+        <p class="text-xs font-bold tracking-widest text-teal-700">CUSTOMER OVERVIEW</p>
+        <h3 class="text-xl font-bold text-slate-900 mt-1">Customer Statistics</h3>
+        <p class="text-sm text-slate-500 mt-1">Overview of registered customers and their recorded activities.</p>
+      </div>
+
+      <!-- STATISTICS -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5">
+
+        <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
+          <div class="flex justify-between items-center">
+            <div class="w-11 h-11 rounded-xl bg-cyan-50 text-cyan-700 flex items-center justify-center text-xl">&#9787;</div>
+            <span class="text-xs font-semibold text-slate-400">ALL RECORDS</span>
+          </div>
+          <p class="text-sm text-slate-500 mt-5">Total Customers</p>
+          <h3 id="totalCustomers" class="text-3xl font-bold text-slate-900 mt-1">&mdash;</h3>
+          <p class="text-xs text-slate-400 mt-2">Registered customers</p>
+        </div>
+
+        <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
+          <div class="flex justify-between items-center">
+            <div class="w-11 h-11 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl">&#10003;</div>
+            <span class="text-xs font-semibold text-emerald-600">ACTIVE</span>
+          </div>
+          <p class="text-sm text-slate-500 mt-5">Active Customers</p>
+          <h3 id="activeCustomers" class="text-3xl font-bold text-slate-900 mt-1">&mdash;</h3>
+          <p class="text-xs text-slate-400 mt-2">Currently active records</p>
+        </div>
+
+        <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
+          <div class="flex justify-between items-center">
+            <div class="w-11 h-11 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center text-xl">&#9675;</div>
+            <span class="text-xs font-semibold text-amber-600">INACTIVE</span>
+          </div>
+          <p class="text-sm text-slate-500 mt-5">Inactive Customers</p>
+          <h3 id="inactiveCustomers" class="text-3xl font-bold text-slate-900 mt-1">&mdash;</h3>
+          <p class="text-xs text-slate-400 mt-2">Archived customer records</p>
+        </div>
+
+        <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
+          <div class="flex justify-between items-center">
+            <div class="w-11 h-11 rounded-xl bg-violet-50 text-violet-600 flex items-center justify-center text-xl">&#9776;</div>
+            <span class="text-xs font-semibold text-violet-600">ACTIVITY</span>
+          </div>
+          <p class="text-sm text-slate-500 mt-5">Total Customer Logs</p>
+          <h3 id="totalLogs" class="text-3xl font-bold text-slate-900 mt-1">&mdash;</h3>
+          <p class="text-xs text-slate-400 mt-2">Recorded customer activities</p>
+        </div>
+
+      </div>
+
+      <!-- LOG STATUS SUMMARY -->
+      <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm mt-7">
+        <div class="mb-5">
+          <h3 class="font-bold text-slate-900">Customer Log Status</h3>
+          <p class="text-xs text-slate-500 mt-1">Current status of recorded customer activities</p>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div class="bg-slate-50 rounded-xl p-4">
+            <p class="text-xs text-slate-500">Open</p>
+            <p id="openLogs" class="text-2xl font-bold text-slate-800 mt-1">&mdash;</p>
+          </div>
+          <div class="bg-blue-50 rounded-xl p-4">
+            <p class="text-xs text-blue-600">In Progress</p>
+            <p id="progressLogs" class="text-2xl font-bold text-blue-700 mt-1">&mdash;</p>
+          </div>
+          <div class="bg-emerald-50 rounded-xl p-4">
+            <p class="text-xs text-emerald-600">Resolved</p>
+            <p id="resolvedLogs" class="text-2xl font-bold text-emerald-700 mt-1">&mdash;</p>
+          </div>
+          <div class="bg-gray-100 rounded-xl p-4">
+            <p class="text-xs text-gray-600">Closed</p>
+            <p id="closedLogs" class="text-2xl font-bold text-gray-700 mt-1">&mdash;</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- RECENT ACTIVITIES -->
+      <div class="grid grid-cols-1 xl:grid-cols-3 gap-6 mt-7">
+
+        <section id="recent-activities" class="xl:col-span-2 bg-white border border-slate-200 rounded-2xl shadow-sm">
+          <div class="p-6 border-b border-slate-100 flex flex-wrap justify-between items-center gap-3">
+            <div>
+              <h3 class="font-bold text-slate-900">Recent Customer Activities</h3>
+              <p class="text-xs text-slate-500 mt-1">Latest recorded customer logs</p>
+            </div>
+            <a href="/customers" class="text-sm font-semibold text-teal-700 hover:text-teal-900">Manage Customers</a>
+          </div>
+
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm text-left">
+              <thead class="bg-slate-50 text-slate-500 text-xs uppercase">
+                <tr>
+                  <th class="px-6 py-4">Customer</th>
+                  <th class="px-6 py-4">Activity</th>
+                  <th class="px-6 py-4">Date</th>
+                  <th class="px-6 py-4">Status</th>
+                </tr>
+              </thead>
+              <tbody id="recentLogsTable">
+                <tr>
+                  <td colspan="4" class="px-6 py-12 text-center text-slate-400">Loading customer activities...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- QUICK ACTIONS -->
+        <section class="bg-white border border-slate-200 rounded-2xl shadow-sm p-6">
+          <h3 class="font-bold text-slate-900">Quick Actions</h3>
+          <p class="text-xs text-slate-500 mt-1 mb-6">Manage customer information</p>
+
+          <div class="space-y-3">
+            <a href="/customers" class="flex items-center gap-3 p-4 border border-slate-200 rounded-xl hover:border-cyan-400 hover:bg-cyan-50 transition">
+              <div class="w-10 h-10 rounded-lg bg-cyan-100 text-cyan-700 flex items-center justify-center text-xl">+</div>
+              <div>
+                <p class="text-sm font-semibold text-slate-800">Manage Customers</p>
+                <p class="text-xs text-slate-500">View and register customers</p>
+              </div>
+            </a>
+
+            <a href="/customer-logs" class="flex items-center gap-3 p-4 border border-slate-200 rounded-xl hover:border-emerald-400 hover:bg-emerald-50 transition">
+              <div class="w-10 h-10 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center text-xl">+</div>
+              <div>
+                <p class="text-sm font-semibold text-slate-800">View Customer Logs</p>
+                <p class="text-xs text-slate-500">Review recorded activities</p>
+              </div>
+            </a>
+          </div>
+
+          <div class="mt-7 p-4 rounded-xl bg-cyan-50 border border-cyan-100">
+            <p class="text-sm font-semibold text-cyan-900">AquaPiol Customer Records</p>
+            <p class="text-xs text-cyan-800 mt-1">Keep customer information and service activities organized.</p>
+          </div>
+        </section>
+
+      </div>
+
+      <p id="dashboardMessage" class="text-xs text-slate-400 mt-5"></p>
+    </div>
+
+    <footer class="px-8 py-5 text-center text-xs text-slate-400 border-t border-slate-200 bg-white">
+      &copy; 2026 AquaPiol &mdash; Customers Log Management System
+      <p class="mt-1">Aqua Piol Bongabong, Oriental Mindoro</p>
+    </footer>
+  </main>
+</div>
+
+<script>
+  function escapeHTML(value) {
+    return String(value ?? "").replace(/[&<>"']/g, function (character) {
+      const entities = {
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#039;"
+      };
+      return entities[character];
+    });
+  }
+
+  function formatDate(value) {
+    if (!value) return "&mdash;";
+
+    const date = new Date(value);
+    if (Number.isNaN(date.getTime())) return "&mdash;";
+
+    return date.toLocaleString("en-PH", {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit"
+    });
+  }
+
+  function statusBadge(status) {
+    const styles = {
+      open: "bg-amber-100 text-amber-700",
+      in_progress: "bg-blue-100 text-blue-700",
+      resolved: "bg-emerald-100 text-emerald-700",
+      closed: "bg-slate-100 text-slate-700"
+    };
+
+    const labels = {
+      open: "Open",
+      in_progress: "In Progress",
+      resolved: "Resolved",
+      closed: "Closed"
+    };
+
+    const safeStatus = String(status || "").toLowerCase();
+
+    return '<span class="px-3 py-1 rounded-full text-xs font-semibold ' +
+      (styles[safeStatus] || "bg-slate-100 text-slate-600") + '">' +
+      escapeHTML(labels[safeStatus] || status || "Unknown") +
+      "</span>";
+  }
+
+  function renderRecentLogs(logs) {
+    const table = document.getElementById("recentLogsTable");
+
+    if (!logs.length) {
+      table.innerHTML = `
+        <tr>
+          <td colspan="4" class="px-6 py-12 text-center">
+            <p class="font-semibold text-slate-700">No customer activities yet</p>
+            <p class="text-xs text-slate-400 mt-2">Recorded customer logs will appear here.</p>
+          </td>
+        </tr>`;
+      return;
+    }
+
+    table.innerHTML = logs.slice(0, 5).map(function (log) {
+      const customer = log.customer || {};
+      const customerName = [
+        customer.firstName,
+        customer.middleName,
+        customer.lastName
+      ].filter(Boolean).join(" ") || "Customer #" + log.customerId;
+
+      return `
+        <tr class="border-t border-slate-100 hover:bg-slate-50">
+          <td class="px-6 py-4">
+            <p class="font-semibold text-slate-800">${escapeHTML(customerName)}</p>
+          </td>
+          <td class="px-6 py-4">
+            <p class="font-medium text-slate-700">${escapeHTML(log.logType || "&mdash;")}</p>
+            <p class="text-xs text-slate-400 mt-1">${escapeHTML(log.description || "")}</p>
+          </td>
+          <td class="px-6 py-4 text-xs text-slate-500">${escapeHTML(formatDate(log.loggedAt))}</td>
+          <td class="px-6 py-4">${statusBadge(log.status)}</td>
+        </tr>`;
+    }).join("");
+  }
+
+  async function loadDashboard() {
+    const message = document.getElementById("dashboardMessage");
+
+    try {
+      const responses = await Promise.all([
+        fetch("/api/customers"),
+        fetch("/api/customer-logs")
+      ]);
+
+      const results = await Promise.all(
+        responses.map(function (response) {
+          if (!response.ok) throw new Error("Unable to retrieve dashboard data.");
+          return response.json();
+        })
+      );
+
+      const customerResult = results[0];
+      const logResult = results[1];
+
+      if (!customerResult.success || !logResult.success) {
+        throw new Error("The API returned an unsuccessful response.");
+      }
+
+      const customers = customerResult.data || [];
+      const logs = logResult.data || [];
+
+      const active = customers.filter(function (customer) {
+        return customer.status === "active";
+      }).length;
+
+      const inactive = customers.filter(function (customer) {
+        return customer.status === "inactive";
+      }).length;
+
+      document.getElementById("totalCustomers").textContent = customers.length;
+      document.getElementById("activeCustomers").textContent = active;
+      document.getElementById("inactiveCustomers").textContent = inactive;
+      document.getElementById("totalLogs").textContent = logs.length;
+
+      document.getElementById("openLogs").textContent =
+        logs.filter(log => log.status === "open").length;
+
+      document.getElementById("progressLogs").textContent =
+        logs.filter(log => log.status === "in_progress").length;
+
+      document.getElementById("resolvedLogs").textContent =
+        logs.filter(log => log.status === "resolved").length;
+
+      document.getElementById("closedLogs").textContent =
+        logs.filter(log => log.status === "closed").length;
+
+      logs.sort(function (a, b) {
+        return new Date(b.loggedAt) - new Date(a.loggedAt);
+      });
+
+      renderRecentLogs(logs);
+      message.textContent = "Dashboard data loaded successfully.";
+
+    } catch (error) {
+      message.textContent = "Unable to load dashboard data. Please check your API and database connection.";
+
+      document.getElementById("recentLogsTable").innerHTML = `
+        <tr>
+          <td colspan="4" class="px-6 py-12 text-center text-red-500">
+            Unable to load customer activities.
+          </td>
+        </tr>`;
+
+      console.error("Dashboard error:", error);
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", loadDashboard);
+</script>
+
+</body>
+</html>
+
+
